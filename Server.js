@@ -15,8 +15,9 @@ REST.prototype.connectMysql = function() {
     var pool      =    mysql.createPool({
         connectionLimit : 100,
         host     : 'localhost',
-        user     : 'sebas4444',
-        database : 'c9',
+        user     : 'root',
+        password : '',
+        database : 'restful_api_demo',
         debug    :  false
     });
     pool.getConnection(function(err,connection){
@@ -33,7 +34,6 @@ REST.prototype.configureExpress = function(connection) {
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use(bodyParser.json());
       var router = express.Router();
-      console.log(router);
       app.use('/api', router);
       var rest_router = new rest(router,connection,md5);
       self.startServer();
@@ -46,7 +46,7 @@ REST.prototype.startServer = function() {
 }
 
 REST.prototype.stop = function(err) {
-    console.log("ISSUE WITH MYSQL \n" + err);
+    console.log("ISSUE WITH MYSQL n" + err);
     process.exit(1);
 }
 
